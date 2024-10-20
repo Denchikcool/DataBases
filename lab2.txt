@@ -1,0 +1,25 @@
+1. 
+SELECT * FROM cust WHERE cname LIKE 'A%' OR cname LIKE 'B%' OR cname LIKE 'C%' OR cname LIKE 'D%' OR cname LIKE 'E%' OR cname LIKE 'F%' OR cname LIKE 'G%';
+либо можно так
+SELECT * FROM cust WHERE cname BETWEEN 'A%' AND 'H%'; - т.к. не понятно, должен ли G включаться в диапазон или нет
+ 
+2.
+SELECT * FROM cust WHERE cname LIKE '%e%';
+ 
+3.
+SELECT cnum, SUM(amt) FROM ord GROUP BY cnum HAVING cnum=2008;
+ 
+4.
+SELECT COUNT(DISTINCT rating) FROM cust;
+ 
+5.
+Если предполагается наибольший заказ по цене, то:
+SELECT cnum, MAX(amt) FROM ord GROUP BY cnum HAVING cnum IN(2004, 2006);
+Если предполагается по номеру заказа, то:
+SELECT cnum, MAX(onum) FROM ord GROUP BY cnum HAVING cnum IN(2004, 2006);
+ 
+6.
+SELECT MIN(sname) FROM sal WHERE sname LIKE '%i%';
+ 
+7.
+SELECT snum, MIN(odate) FROM ord GROUP BY snum;
