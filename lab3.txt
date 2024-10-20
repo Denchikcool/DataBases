@@ -1,0 +1,13 @@
+1. SELECT ord.onum, ord.amt*0.85, 'евро', cust.cname, cust.rating FROM ord, cust WHERE ord.cnum=cust.cnum AND (cust.city='London' OR cust.city='Rome');
+либо
+SELECT ord.onum, ord.amt*0.85, 'евро', cust.cname, cust.rating FROM ord, cust WHERE ord.cnum=cust.cnum AND cust.city IN('London', 'Rome');
+2.SELECT ord.amt, sal.sname, cust.cname FROM ord, sal, cust WHERE ord.snum=sal.snum AND ord.cnum=cust.cnum AND ord.odate IN ('2022-08-04', '2022-08-05') ORDER BY ord.amt ASC;
+3. SELECT cust.cname, SUM(ord.amt) FROM cust, ord WHERE cust.cnum=ord.cnum AND cust.city IN('Rome', 'Berlin') GROUP BY cust.cname ORDER BY cust.cname ASC;
+4. SELECT ord.onum, ord.amt, sal.sname, cust.cname FROM ord, sal, cust WHERE ord.cnum=cust.cnum AND ord.snum=sal.snum AND (cust.city<'L' OR cust.city>='S') AND (sal.city<'L' OR sal.city>='S');
+либо через функцию со строкой
+SELECT ord.onum, ord.amt, sal.sname, cust.cname FROM ord, sal, cust WHERE ord.cnum=cust.cnum AND ord.snum=sal.snum AND SUBSTRING(cust.city, 1, 1) NOT BETWEEN 'L' AND 'R' AND SUBSTRING(sal.city, 1, 1) NOT BETWEEN 'L' AND 'R';
+5. SELECT first.onum, second.onum FROM ord first, ord second WHERE second.odate = '2022-08-03' AND first.odate = '2022-08-03' AND second.onum > first.onum;
+либо
+SELECT first.onum, second.onum FROM ord first, ord second WHERE first.odate = '2022-08-03' AND second.odate = '2022-08-03' AND first.onum < second.onum ORDER BY second.onum, first.onum DESC;
+6.SELECT sname FROM sal WHERE snum IN(SELECT snum FROM cust WHERE rating<300);
+7. SELECT snum, SUM(amt) FROM ord GROUP BY snum HAVING SUM(amt)<(SELECT MAX(amt) FROM ord); 
