@@ -1,0 +1,8 @@
+1. SELECT * FROM cust WHERE rating=100
+2. SELECT amt, odate, snum FROM ord
+3. SELECT cnum, cname FROM cust WHERE city='Rome'
+4. SELECT DISTINCT snum FROM ord 
+5. SELECT sname, city FROM sal WHERE NOT city='San Jose' AND comm>0.11
+6. SELECT * FROM cust WHERE rating>200 AND city='San Jose'
+7. SELECT * FROM ord WHERE cnum=2002 OR cnum=2008 
+   SELECT * FROM ord WHERE cnum IN (2002, 2008)
