@@ -1,0 +1,22 @@
+1. SELECT o.onum, o.amt, o.odate, s.sname FROM ord o LEFT JOIN sal s ON o.snum=s.snum;
+2. SELECT o.onum, o.amt, s.sname, s.city FROM ord o INNER JOIN sal s ON o.snum=s.snum WHERE s.comm>0.13;
+3. 
+SELECT c.cname, MAX(o.amt) AS max_order_amount
+	FROM cust c
+	LEFT JOIN ord o ON c.cnum = o.cnum
+	WHERE c.cname NOT LIKE 'C%'
+	GROUP BY c.cname
+UNION
+SELECT c.cname, NULL AS max_order_amount
+	FROM cust c
+	LEFT JOIN ord o ON c.cnum = o.cnum
+	WHERE c.cname LIKE 'C%'
+	GROUP BY c.cname;
+4. SELECT DISTINCT s.sname, c.cname FROM sal s CROSS JOIN cust c WHERE s.city='London' AND c.city='London';
+5.
+SELECT s.snum FROM sal s, ord o WHERE s.snum=o.snum
+UNION
+SELECT c.cnum FROM cust c, ord o WHERE c.cnum=o.cnum;
+6. CREATE VIEW sal_ord_view AS SELECT * FROM ord NATURAL JOIN sal; 
+Таблицы соединились по общему столбцу snum
+7. SELECT DISTINCT sname FROM sal INNER JOIN ord ON sal.snum=ord.snum WHERE cnum IN (SELECT cnum FROM ord GROUP BY cnum HAVING MAX(amt) < 1500);
